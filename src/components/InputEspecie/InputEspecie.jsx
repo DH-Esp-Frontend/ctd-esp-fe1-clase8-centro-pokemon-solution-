@@ -4,9 +4,9 @@ import { ContextoFormulario } from "../../context/ContextoFormulario";
 
 const InputEspecie = ({ name, label }) => {
 	
-	const [mostrarPopup, setMostrarPopup] = useState(false);
-	const { handleInputBlur } = useContext(ContextoFormulario);
-	const [especiesOffset,setEspeciesOffset] = useState(0);
+const [mostrarPopup, setMostrarPopup] = useState(false);
+const { handleInputBlur } = useContext(ContextoFormulario);
+const [especiesOffset,setEspeciesOffset] = useState(0);
 /**
  * Esta función realiza un pedido a la API pokemon para obtener las especies
  * @param {array} queryKey array de dos elementos a la cual tenemos acceso gracias a useQuery
@@ -14,11 +14,11 @@ const InputEspecie = ({ name, label }) => {
  * @param {string} key clave para identificar la petición, en este ejemplo no se utiliza
  * @returns {array} 
  */
-	const getPokemonEspecies = async ({ queryKey }) => {
-	const [ key ,offset] = queryKey;
+const getPokemonEspecies = async ({ queryKey }) => {
+const [ key ,offset] = queryKey;
 	
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=20`);
-			const data = await response.json();
+const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=20`);
+	const data = await response.json();
 			return data.results;
 		};
 
