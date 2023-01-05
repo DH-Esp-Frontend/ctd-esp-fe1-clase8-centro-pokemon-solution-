@@ -3,6 +3,10 @@ import { useQuery } from "react-query";
 import { ContextoFormulario } from "../../context/ContextoFormulario";
 
 const InputEspecie = ({ name, label }) => {
+	
+const [mostrarPopup, setMostrarPopup] = useState(false);
+const { handleInputBlur } = useContext(ContextoFormulario);
+const [especiesOffset,setEspeciesOffset] = useState(0);
   
   const [mostrarPopup, setMostrarPopup] = useState(false);
   const { handleInputBlur } = useContext(ContextoFormulario);
@@ -14,6 +18,13 @@ const InputEspecie = ({ name, label }) => {
  * @param {string} key clave para identificar la petición, en este ejemplo no se utiliza
  * @returns {array} 
  */
+const getPokemonEspecies = async ({ queryKey }) => {
+const [ key ,offset] = queryKey;
+	
+const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=20`);
+	const data = await response.json();
+			return data.results;
+		};
   const getPokemonEspecies = async ({ queryKey }) => {
     const [ key ,offset] = queryKey;
   
@@ -24,6 +35,14 @@ const InputEspecie = ({ name, label }) => {
       return data.results;
     };
 
+		/**
+		 * Implementamos useQuery y le pasamos la función getPokemonEspecies que creamos arriba.
+		 * Esta función nos devuelve un array: data, que la renombramos como "especies"
+		 */
+	const {data: especies} = useQuery(["especies",especiesOffset],getPokemonEspecies);
+		
+	const elegirEspecie = (e, nombreEspecie) => {
+		e.preventDefault();
     /**
      * Implementamos useQuery y le pasamos la función getPokemonEspecies que creamos arriba.
      * Esta función nos devuelve un array: data, que la renombramos como "especies"
