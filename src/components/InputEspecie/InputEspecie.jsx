@@ -15,11 +15,9 @@ const InputEspecie = ({ name, label }) => {
  * @returns {array} 
  */
 	const getPokemonEspecies = async ({ queryKey }) => {
-		const [ key ,offset] = queryKey;
+	const [ key ,offset] = queryKey;
 	
-		const response = await fetch(
-			`https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=20`
-		);
+	const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/?offset=${offset}&limit=20`);
 			const data = await response.json();
 			return data.results;
 		};
@@ -28,9 +26,9 @@ const InputEspecie = ({ name, label }) => {
 		 * Implementamos useQuery y le pasamos la función getPokemonEspecies que creamos arriba.
 		 * Esta función nos devuelve un array: data, que la renombramos como "especies"
 		 */
-		const {data: especies} = useQuery(["especies",especiesOffset],getPokemonEspecies);
+	const {data: especies} = useQuery(["especies",especiesOffset],getPokemonEspecies);
 		
-		const elegirEspecie = (e, nombreEspecie) => {
+	const elegirEspecie = (e, nombreEspecie) => {
 		e.preventDefault();
 
 		handleInputBlur("ACTUALIZAR_POKEMON", {
